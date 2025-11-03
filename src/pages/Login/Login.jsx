@@ -2,15 +2,19 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLoginMutation } from "../../api/endpoints/authApi";
 import { selectAuth, logout } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { loading, error, isAuthenticated } = useSelector(selectAuth);
+  const navigate = useNavigate();
+  const { loading, error, isAuthenticated, user } = useSelector(selectAuth);
   const [login] = useLoginMutation();
 
   const handleLogin = async () => {
     try {
-      await login({ email: "test@test.com", password: "123456" }).unwrap();
+      localStorage.setItem("token", "test@test.com");
+      navigate("/dashboard");
+      //await login({ email: "test@test.com", password: "123456" }).unwrap();
     } catch (err) {
       console.error(err);
     }

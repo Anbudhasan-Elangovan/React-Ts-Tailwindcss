@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { authApi } from "../../api/endpoints/authApi";
 
 const initialState = {
-  token: null,
+  token: localStorage.getItem("token") || null,
   user: null,
   loading: false,
   error: null,
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem("token"),
 };
 
 const authSlice = createSlice({
@@ -43,6 +43,8 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const selectAuth = (state) => state.auth;
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

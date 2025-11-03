@@ -1,52 +1,65 @@
+// src/routes/AppRoutes.jsx
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-
-import AuthLayout from "../layouts/AuthLayout";
+import { Routes, Route, Navigate } from "react-router";
 import MainLayout from "../layouts/MainLayout";
-import Loader from "../components/Common/Loader";
+import AuthLayout from "../layouts/AuthLayout";
 
 // Lazy-loaded pages
 const Home = lazy(() => import("../pages/Home/Home"));
 const About = lazy(() => import("../pages/About/About"));
+const Contact = lazy(() => import("../pages/Contact/Contact"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 
-const PrivateRoute = ({ children }) => {
-  const isAuth = true;
-  return isAuth ? children : <Navigate to="/login" />;
+/* -------------------------------------------------------------------------- */
+/* ✅ Auth helper                                                              */
+/* -------------------------------------------------------------------------- */
+const isAuthenticated = () => {
+  return localStorage.getItem("token");
 };
 
+/* -------------------------------------------------------------------------- */
+/* ✅ ProtectedRoute wrapper                                                  */
+/* -------------------------------------------------------------------------- */
+const ProtectedRoute = ({ children }) => {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
+/* -------------------------------------------------------------------------- */
+/* ✅ AppRoutes (Declarative v7)                                              */
+/* -------------------------------------------------------------------------- */
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          {/* Public / auth routes */}
-          <Route element={<AuthLayout />}>
-            <Route path="/login" element={<Login />} />
-          </Route>
+    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+      <Routes>
+        {/* Public Routes */}
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<ProtectedRoute />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
 
-          {/* Main application routes (header/sidebar/footer etc) */}
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+        {/* Private Routes */}
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-            {/* Protected route */}
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
-              }
-            />
-          </Route>
-
-          {/* Catch-all: redirect unknown paths */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+        {/* 404 */}
+        <Route path="*" element={<div>404 - Page Not Found</div>} />
+      </Routes>
+    </Suspense>
   );
 };
 

@@ -1,17 +1,17 @@
 import "./App.css";
 
-import { RouterProvider } from "react-router";
+import { BrowserRouter } from "react-router";
 import { router } from "./routes/routerConfig";
+import AppRoutes from "./routes/AppRoutes";
 
 import MainLayout from "./layouts/MainLayout";
 
 function App() {
-  // return (
-  //   <>
-  //     <MainLayout />
-  //   </>
-  // );
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
 export default App;
