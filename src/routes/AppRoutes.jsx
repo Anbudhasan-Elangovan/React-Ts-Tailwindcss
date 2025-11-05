@@ -28,6 +28,14 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const InitialProtectedRoute = () => {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" replace />;
+  } else {
+    return <Navigate to="/dashboard" />;
+  }
+};
+
 /* -------------------------------------------------------------------------- */
 /* ✅ AppRoutes (Declarative v7)                                              */
 /* -------------------------------------------------------------------------- */
@@ -37,7 +45,7 @@ const AppRoutes = () => {
       <Routes>
         {/* Public Routes */}
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<ProtectedRoute />} />
+          <Route path="/" element={<InitialProtectedRoute />} />
           <Route path="/login" element={<Login />} />
         </Route>
 
