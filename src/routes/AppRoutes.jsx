@@ -10,6 +10,7 @@ const About = lazy(() => import("../pages/About/About"));
 const Contact = lazy(() => import("../pages/Contact/Contact"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const UseState = lazy(() => import("../pages/UseState/UseState"));
 
 /* -------------------------------------------------------------------------- */
 /* ✅ Auth helper                                                              */
@@ -59,6 +60,14 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/use-state"
+            element={
+              <ProtectedRoute>
+                <UseState />
               </ProtectedRoute>
             }
           />

@@ -16,6 +16,16 @@ export default function Sidebar() {
           Dashboard
         </NavLink>
         <NavLink
+          to="/use-state"
+          className={({ isActive }) =>
+            `rounded px-3 py-2 hover:bg-gray-700 ${
+              isActive ? "bg-gray-700 font-medium" : ""
+            }`
+          }
+        >
+          useState
+        </NavLink>
+        <NavLink
           to="/users"
           className={({ isActive }) =>
             `rounded px-3 py-2 hover:bg-gray-700 ${
