@@ -11,6 +11,7 @@ const Contact = lazy(() => import("../pages/Contact/Contact"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const UseState = lazy(() => import("../pages/UseState/UseState"));
+const UseEffect = lazy(() => import("../pages/UseEffect/UseEffect"));
 
 /* -------------------------------------------------------------------------- */
 /* ✅ Auth helper                                                              */
@@ -68,6 +69,14 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute>
                 <UseState />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/use-effect"
+            element={
+              <ProtectedRoute>
+                <UseEffect />
               </ProtectedRoute>
             }
           />
