@@ -12,6 +12,9 @@ const Login = lazy(() => import("../pages/Login/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const UseState = lazy(() => import("../pages/UseState/UseState"));
 const UseEffect = lazy(() => import("../pages/UseEffect/UseEffect"));
+const LoginAuthendication = lazy(() =>
+  import("../pages/LoginAuthendication/LoginAuthendication")
+);
 
 /* -------------------------------------------------------------------------- */
 /* ✅ Auth helper                                                              */
@@ -77,6 +80,14 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute>
                 <UseEffect />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/login-authendication"
+            element={
+              <ProtectedRoute>
+                <LoginAuthendication />
               </ProtectedRoute>
             }
           />
