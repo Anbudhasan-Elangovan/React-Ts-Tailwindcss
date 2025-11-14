@@ -15,6 +15,9 @@ const UseEffect = lazy(() => import("../pages/UseEffect/UseEffect"));
 const LoginAuthendication = lazy(() =>
   import("../pages/LoginAuthendication/LoginAuthendication")
 );
+const DinamicElements = lazy(() =>
+  import("../pages/DinamicElements/DinamicElements")
+);
 
 /* -------------------------------------------------------------------------- */
 /* ✅ Auth helper                                                              */
@@ -83,11 +86,20 @@ const AppRoutes = () => {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/login-authendication"
             element={
               <ProtectedRoute>
                 <LoginAuthendication />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dinamic-elements"
+            element={
+              <ProtectedRoute>
+                <DinamicElements />
               </ProtectedRoute>
             }
           />
